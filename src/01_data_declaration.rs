@@ -46,7 +46,7 @@ fn main() {
     
     // 布尔类型：bool
     let is_raining = true;           // 真
-    let is_sunny: bool = false;      // 假
+    let _is_sunny: bool = false;      // 加上 _ 前缀表示故意不使用
     let is_adult = age >= 18;        // 表达式结果也是布尔值
     println!("正在下雨吗? {}, 是成年人吗? {}", is_raining, is_adult);
     
@@ -63,6 +63,34 @@ fn main() {
        - 布尔值：bool 类型，只有 true 和 false
        - 字符：char 类型，使用单引号，支持 Unicode
     */
+    
+    // 更多数据类型细节
+    println!("\n=== 数据类型进阶 ===");
+    
+    // 数组：固定大小，所有元素类型相同
+    let months: [&str; 12] = [
+        "一月", "二月", "三月", "四月", "五月", "六月",
+        "七月", "八月", "九月", "十月", "十一月", "十二月"
+    ];
+    println!("第一个月: {}", months[0]);
+    println!("共有 {} 个月", months.len());
+    
+    // 元组：可以包含不同类型的值
+    let person: (&str, i32, f64) = ("张三", 30, 175.5);
+    println!("姓名: {}, 年龄: {}, 身高: {}cm", person.0, person.1, person.2);
+    
+    // 解构元组
+    let (name, _age, _height) = person;
+    println!("解构后 - 姓名: {}", name);
+    
+    // 切片：引用数组的一部分
+    let slice = &months[0..3];  // 前三个月
+    println!("第一季度: {:?}", slice);
+    
+    // 类型别名
+    type Kilometers = i32;
+    let distance: Kilometers = 5;
+    println!("距离: {} 公里", distance);
     
     println!();
     
@@ -84,7 +112,7 @@ fn main() {
     let member_level = 2;
     let is_vip = member_level >= 2;          // 大于等于
     let is_exactly_165 = final_price == 165; // 等于
-    let is_not_zero = final_price != 0;      // 不等于
+    let _is_not_zero = final_price != 0;      // 不等于  // 加上 _ 前缀
     println!("是VIP吗? {}, 正好165? {}", is_vip, is_exactly_165);
     
     // 逻辑运算符：用于组合多个条件
@@ -108,4 +136,35 @@ fn main() {
        - 位运算符：&, |, ^, <<, >>（用于二进制位操作）
        - Rust 是强类型语言，运算符两边的类型必须匹配
     */
+    
+    // 运算符进阶
+    println!("\n=== 运算符进阶 ===");
+    
+    // 复合赋值运算符
+    let mut value = 10;
+    value += 5;                      // 相当于 value = value + 5
+    value *= 2;                      // 相当于 value = value * 2
+    println!("复合运算结果: {}", value);
+    
+    // 类型转换（必须显式）
+    let integer = 42;
+    let float = integer as f64;      // 显式转换为 f64
+    println!("整数 {} 转换为浮点数 {}", integer, float);
+    
+    // 溢出处理
+    let max_u8 = 255u8;
+    // let overflow = max_u8 + 1;    // 在 debug 模式下会 panic
+    let wrapped = max_u8.wrapping_add(1);        // 包装算术，结果为 0
+    let checked = max_u8.checked_add(1);         // 返回 Option
+    let saturated = max_u8.saturating_add(1);   // 饱和算术，结果为 255
+    println!("包装加法: {}, 检查加法: {:?}, 饱和加法: {}", 
+             wrapped, checked, saturated);
+    
+    // 短路求值
+    let x = 5;
+    let result = x > 0 && {
+        println!("这会被执行，因为 x > 0");
+        x < 10
+    };
+    println!("短路求值结果: {}", result);
 }
