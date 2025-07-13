@@ -285,7 +285,7 @@ fn main() {
         Some(x) => println!("找到了其他数: {}", x),
         None => println!("没有找到数"),
     }
-    
+
     // 使用 if let 进行模式匹配（简化的 match）
     // if let 用于简单的模式匹配，比完整的 match 更简洁
     let maybe_score = Some(85);
@@ -294,6 +294,6 @@ fn main() {
     } else {
         println!("没有分数记录");
     }
-    
+
     // 相比其他语言的 switch，match 更安全（必须处理所有情况）
 }
